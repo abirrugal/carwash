@@ -33,7 +33,6 @@ class VehicleController extends Controller
             $image = upload($request->file('image'), 'vechicles');
             $inputs['image'] = $image;
         }
-
         $inputs['user_id'] = auth()->id();
 
         Vehicle::create($inputs);
@@ -57,7 +56,6 @@ class VehicleController extends Controller
             $image = upload($request->file('image'), 'vechicles');
             $inputs['image'] = $image;
         }
-
         $vehicle->update($inputs);
 
         return successResponse('Vechicle updated successfully!');

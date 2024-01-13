@@ -32,7 +32,6 @@ class PackageController extends Controller
         }
 
         $inputs['user_id'] = auth()->id();
-
         Package::create($inputs);
 
         return successResponse('Package created successfully!');
@@ -54,7 +53,6 @@ class PackageController extends Controller
             $image = upload($request->file('image'), 'packages');
             $inputs['image'] = $image;
         }
-
         $package->update($inputs);
 
         return successResponse('Package updated successfully!');
