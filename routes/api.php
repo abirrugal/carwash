@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\VehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,8 +35,11 @@ Route::prefix('v1')->group(function () {
             Route::put('/{vehicle}', 'update');
             Route::delete('/{vehicle}', 'destroy');
         });
+        Route::prefix('package')->controller(PackageController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/{package}', 'update');
+            Route::delete('/{package}', 'destroy');
+        });
     });
-
 });
-
-
