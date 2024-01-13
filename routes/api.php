@@ -31,9 +31,8 @@ Route::prefix('v1')->group(function () {
         Route::prefix('vehicle')->controller(VehicleController::class)->group(function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
-            Route::get('/{category}', 'show');
-            Route::put('/{category}', 'update');
-            Route::delete('/{category}', 'destroy');
+            Route::put('/{vehicle}', 'update');
+            Route::delete('/{vehicle}', 'destroy');
         });
     });
 

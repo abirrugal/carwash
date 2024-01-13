@@ -48,12 +48,24 @@ class VehicleController extends Controller
             'model' => 'nullable|string|min:2',
             'type' => 'nullable|string|in:classic, modern',
             'image' => 'nullable|image|mimes:jpg,png,jpeg'
-        ]);  
+        ]);
 
-        if($request->file('image') && $request->file('image')->isValid()){
-            
+        if ($request->file('image') && $request->file('image')->isValid()) {
+            detach($vehicle->image);
+            $image = upload($request->file('image'), 'vechicles');
+            $inputs['image'] = $image;
         }
 
         $vehicle->update($inputs);
+
+        return successResponse('Vechicle updated successfully!');
+    }
+
+    public function destroy(Vehicle $vehicle)
+    {
+        detach($vehicle->image);
+        $vehicle->delete();
+
+        return successResponse('Vechicle updated successfully!');
     }
 }
