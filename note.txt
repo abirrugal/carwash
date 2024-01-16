@@ -1,25 +1,26 @@
-1. Register and login using mobile number and otp
-2. Rules/conditions api and admin panel,
+1. Register and login using mobile number and otp (done)
+2. Rules/conditions api and admin panel, (done)
    
    * Title, list (multiple)
 
-3. Vechicles crud,
+3. Vechicles crud, (done)
 
 	name, model, image, type
 	
 	
-4. Packages crud,
+4. Packages crud, (done)
 
 	image, title, details(text editor), price, time_limit
 	
 
-5. additional,
+5. additional, (done)
 	title, details, price, mini_title
 	
 Order
 =======
-1.Order, ['package_id, 'customer_name, customer_phone, customer_address, tips,  package_price] 
-2.Order Items, ['vechicle_id', order_id, 'name', model, image, type, additional_price]
+1.Order, ['package_id, package_name, package_details, package_price, tips, 'customer_name, customer_phone, customer_address] 
+2.Order Items, ['vechicle_id', order_id, 'name', model, image, type, additional_price, additional_title, additional_details]
+
 
 
 
