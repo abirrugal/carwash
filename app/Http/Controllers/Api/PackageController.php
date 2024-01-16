@@ -11,7 +11,7 @@ class PackageController extends Controller
 {
     public function index(Request $request)
     {
-        $vechicles = Package::latest()->where('user_id', auth()->id())->get();
+        $vechicles = Package::latest()->get();
 
         return apiResourceResponse(PackageResource::collection($vechicles), 'Package List');
     }
@@ -31,7 +31,6 @@ class PackageController extends Controller
             $inputs['image'] = $image;
         }
 
-        $inputs['user_id'] = auth()->id();
         Package::create($inputs);
 
         return successResponse('Package created successfully!');
@@ -39,8 +38,6 @@ class PackageController extends Controller
 
     public function update(Request $request, Package $package)
     {
-        if ($package->user_id != auth()->id()) return 'Permission denied';
-
         $inputs = $request->validate([
             'name' => 'nullable|string|min:2',
             'model' => 'nullable|string|min:2',
@@ -59,12 +56,10 @@ class PackageController extends Controller
     }
 
     public function destroy(Package $package)
-    {
-        if ($package->user_id != auth()->id()) return 'Permission denied';
-        
+    {        
         detach($package->image);
         $package->delete();
 
-        return successResponse('Package updated successfully!');
+        return successResponse('Package deleted successfully!');
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\AdditionalController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\GuidelineController;
 use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\VehicleController;
 use Illuminate\Http\Request;
@@ -40,6 +42,18 @@ Route::prefix('v1')->group(function () {
             Route::post('/', 'store');
             Route::put('/{package}', 'update');
             Route::delete('/{package}', 'destroy');
+        });
+        Route::prefix('additional')->controller(AdditionalController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/{additional}', 'update');
+            Route::delete('/{additional}', 'destroy');
+        });
+        Route::prefix('guideline')->controller(GuidelineController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/{guideline}', 'update');
+            Route::delete('/{guideline}', 'destroy');
         });
     });
 });
