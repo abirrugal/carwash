@@ -39,9 +39,10 @@ class PackageController extends Controller
     public function update(Request $request, Package $package)
     {
         $inputs = $request->validate([
-            'name' => 'nullable|string|min:2',
-            'model' => 'nullable|string|min:2',
-            'type' => 'nullable|string|in:classic, modern',
+            'title' => 'nullable|string|min:2',
+            'details' => 'nullable|string|min:3',
+            'time_limit' => 'nullable|string',
+            'price' => 'nullable|numeric',
             'image' => 'nullable|image|mimes:jpg,png,jpeg'
         ]);
 
