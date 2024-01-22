@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AdditionalController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GuidelineController;
 use App\Http\Controllers\Api\PackageController;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehicleModelController;
 use App\Http\Controllers\Api\VehicleNameController;
 use Illuminate\Http\Request;
@@ -39,6 +40,12 @@ Route::prefix('v1')->group(function () {
             Route::delete('/{vehicle}', 'destroy');
         });
         Route::prefix('vehicle_model')->controller(VehicleModelController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/{vehicle}', 'update');
+            Route::delete('/{vehicle}', 'destroy');
+        });
+        Route::prefix('user_vehicle')->controller(UserController::class)->group(function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
             Route::put('/{vehicle}', 'update');

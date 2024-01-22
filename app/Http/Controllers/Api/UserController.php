@@ -26,7 +26,7 @@ class UserController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5000'
         ]);
 
-        if($request->file('image') && $request->file('image')->isValid()){
+        if ($request->file('image') && $request->file('image')->isValid()) {
             $image = upload($request->file('image'), 'uservehicles');
             $inputs['image'] = $image;
         }
@@ -45,7 +45,7 @@ class UserController extends Controller
             'model' => 'nullable|exists:vehicle_models, model',
         ]);
 
-        if($request->file('image') && $request->file('image')->isValid()){
+        if ($request->file('image') && $request->file('image')->isValid()) {
             detach($vehicle->image);
             $image = upload($request->file('image'), 'uservehicles');
             $inputs['image'] = $image;
@@ -53,5 +53,11 @@ class UserController extends Controller
         UserVehicle::create($inputs);
 
         return successResponse('User vehicle created successfully.');
+    }
+
+    public function destroy(UserVehicle $vehicle)
+    {
+        
+        $vehicle->delete();
     }
 }
