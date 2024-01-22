@@ -28,10 +28,6 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
-        // Route::prefix('user')->controller(UserController::class)->group(function () {
-        //     Route::get('/profile', 'profile');
-        //     Route::put('/profile/update', 'update');
-        // });
 
         Route::prefix('vehicle_name')->controller(VehicleNameController::class)->group(function () {
             Route::get('/', 'index');

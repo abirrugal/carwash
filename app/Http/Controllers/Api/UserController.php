@@ -57,7 +57,6 @@ class UserController extends Controller
 
     public function destroy(UserVehicle $vehicle)
     {
-        
         $vehicle->delete();
     }
 }
