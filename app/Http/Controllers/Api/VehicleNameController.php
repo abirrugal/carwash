@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class VehicleNameController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $vechicles = VehicleName::latest()->get();
 
-        return apiResourceResponse(VehicleNameResource::collection($vechicles), 'Vechicles List');
+        return apiResourceResponse(VehicleNameResource::collection($vechicles), 'Vechicle name List');
     }
 
     public function store(Request $request)
@@ -30,8 +30,6 @@ class VehicleNameController extends Controller
 
     public function update(Request $request, VehicleName $vehicle)
     {
-        if ($vehicle->user_id != auth()->id()) return 'Permission denied';
-
         $inputs = $request->validate([
             'name' => 'nullable|string|min:2',
         ]);
@@ -42,11 +40,9 @@ class VehicleNameController extends Controller
     }
 
     public function destroy(VehicleName $vehicle)
-    {
-        if ($vehicle->user_id != auth()->id()) return 'Permission denied';
-        
+    {     
         $vehicle->delete();
 
-        return successResponse('Vechicle Name updated successfully!');
+        return successResponse('Vechicle Name deleted successfully!');
     }
 }

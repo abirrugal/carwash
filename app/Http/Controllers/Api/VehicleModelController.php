@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class VehicleModelController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $vechicles = VehicleModel::latest()->get();
 
@@ -30,8 +30,6 @@ class VehicleModelController extends Controller
 
     public function update(Request $request, VehicleModel $vehicle)
     {
-        if ($vehicle->user_id != auth()->id()) return 'Permission denied';
-
         $inputs = $request->validate([
             'model' => 'nullable|string|min:2',
         ]);
@@ -43,10 +41,8 @@ class VehicleModelController extends Controller
 
     public function destroy(VehicleModel $vehicle)
     {
-        if ($vehicle->user_id != auth()->id()) return 'Permission denied';
-        
         $vehicle->delete();
 
-        return successResponse('Vechicle model updated successfully!');
+        return successResponse('Vechicle model deleted successfully!');
     }
 }
