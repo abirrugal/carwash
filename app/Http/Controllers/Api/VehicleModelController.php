@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 
 class VehicleModelController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $vechicles = VehicleModel::latest()->get();
+        $vechicles = VehicleModel::latest();
+        $type = $request->type;
+        
+        if ($type) {
+            $vechicles = $vechicles->where('type', $type);
+        }
+        $vechicles = $vechicles->get();
 
         return apiResourceResponse(VehicleModelResource::collection($vechicles), 'Vechicle Model List');
     }
@@ -20,6 +26,7 @@ class VehicleModelController extends Controller
     {
         $inputs = $request->validate([
             'model' => 'required|string|min:2',
+            'type' => 'required|in:classic, modern'
         ]);
         $inputs['created_by'] = auth()->id();
 
@@ -32,6 +39,7 @@ class VehicleModelController extends Controller
     {
         $inputs = $request->validate([
             'model' => 'nullable|string|min:2',
+            'type' => 'nullable|in:classic, modern'
         ]);
 
         $vehicle->update($inputs);

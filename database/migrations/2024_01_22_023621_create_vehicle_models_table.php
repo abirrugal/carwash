@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('created_by');
             $table->string('model')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
     }
