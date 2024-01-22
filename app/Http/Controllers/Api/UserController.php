@@ -61,7 +61,7 @@ class UserController extends Controller
             $image = upload($request->file('image'), 'uservehicles');
             $inputs['image'] = $image;
         }
-        UserVehicle::create($inputs);
+        $vehicle->update($inputs);
 
         return successResponse('User vehicle created successfully.');
     }
