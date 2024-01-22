@@ -4,7 +4,8 @@ use App\Http\Controllers\Api\AdditionalController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GuidelineController;
 use App\Http\Controllers\Api\PackageController;
-use App\Http\Controllers\Api\VehicleController;
+use App\Http\Controllers\Api\VehicleModelController;
+use App\Http\Controllers\Api\VehicleNameController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +32,13 @@ Route::prefix('v1')->group(function () {
         //     Route::put('/profile/update', 'update');
         // });
 
-        Route::prefix('vehicle')->controller(VehicleController::class)->group(function () {
+        Route::prefix('vehicle_name')->controller(VehicleNameController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            Route::put('/{vehicle}', 'update');
+            Route::delete('/{vehicle}', 'destroy');
+        });
+        Route::prefix('vehicle_model')->controller(VehicleModelController::class)->group(function () {
             Route::get('/', 'index');
             Route::post('/', 'store');
             Route::put('/{vehicle}', 'update');
