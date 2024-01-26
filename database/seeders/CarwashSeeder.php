@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Additional;
+use App\Models\Order;
+use App\Models\OrderAdditionalPrice;
+use App\Models\OrderItem;
 use App\Models\Package;
 use App\Models\User;
 use App\Models\UserVehicle;
@@ -21,6 +24,7 @@ class CarwashSeeder extends Seeder
         $this->users();
         $this->vehicles();
         $this->userVehicles();
+        $this->orders();
     }
 
     public function users()
@@ -75,6 +79,41 @@ class CarwashSeeder extends Seeder
                 'name' => 'Demo Car ' . $i,
                 'model' => 'Demo Car model ' . $i,
                 'image' => fake()->imageUrl()
+            ]);
+        }
+    }
+
+    public function orders()
+    {
+        for ($i = 1; $i < 21; $i++) {
+            Order::create([
+                'package_name' => 'Demo Package ' . $i,
+                'package_details' => 'Demo Package Details ' . $i,
+                'package_price' => rand(40, 400),
+                'tips' => rand(20, 60),
+                'customer_name' => fake()->name(),
+                'customer_phone' => fake()->phoneNumber(),
+                'customer_address' => fake()->address(),
+            ]);
+        }
+
+        for ($i = 0; $i < 201; $i++) {
+            OrderItem::create([
+                'order_id' => rand(1, 20),
+                'vehicle_name' => 'Demo Car name ' . $i,
+                'vehicle_model' => 'Demo Car model ' . $i,
+                'image' => fake()->imageUrl(),
+                'type' => fake()->randomElement(['classic', 'modern']),
+                'total_additional_price' => rand(300, 1200)
+            ]);
+        }
+
+        for ($i = 0; $i < 300; $i++) {
+            OrderAdditionalPrice::create([
+                'order_item_id' => rand(1, 200),
+                'title' => 'Demo additional item ' . $i,
+                'details' => 'Demo additional item Details' . $i,
+                'price' => rand(20, 200),
             ]);
         }
     }

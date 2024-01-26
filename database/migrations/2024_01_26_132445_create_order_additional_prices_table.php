@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,14 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_items', function (Blueprint $table) {
+        Schema::create('order_additional_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Order::class);
-            $table->string('vehicle_name');
-            $table->string('vehicle_model');
-            $table->string('image');
-            $table->string('type');
-            $table->decimal('total_additional_price');
+            $table->foreignIdFor(OrderItem::class);
+            $table->string('title');
+            $table->text('details')->nullable();
+            $table->decimal('price');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_items');
+        Schema::dropIfExists('order_additional_prices');
     }
 };
