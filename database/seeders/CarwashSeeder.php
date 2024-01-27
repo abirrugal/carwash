@@ -87,9 +87,11 @@ class CarwashSeeder extends Seeder
     {
         for ($i = 1; $i < 21; $i++) {
             Order::create([
+                'user_id' => $i,
                 'package_name' => 'Demo Package ' . $i,
                 'package_details' => 'Demo Package Details ' . $i,
                 'package_price' => rand(40, 400),
+                'package_work_time' => rand(10, 50) .'min',
                 'tips' => rand(20, 60),
                 'customer_name' => fake()->name(),
                 'customer_phone' => fake()->phoneNumber(),
@@ -100,11 +102,12 @@ class CarwashSeeder extends Seeder
         for ($i = 0; $i < 201; $i++) {
             OrderItem::create([
                 'order_id' => rand(1, 20),
+                'user_vehicle_id' => rand(1, 5),
                 'vehicle_name' => 'Demo Car name ' . $i,
                 'vehicle_model' => 'Demo Car model ' . $i,
                 'image' => fake()->imageUrl(),
                 'type' => fake()->randomElement(['classic', 'modern']),
-                'total_additional_price' => rand(300, 1200)
+                // 'total_additional_price' => rand(300, 1200)
             ]);
         }
 

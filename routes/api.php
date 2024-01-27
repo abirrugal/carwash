@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AdditionalController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GuidelineController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PackageController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehicleModelController;
@@ -64,6 +65,12 @@ Route::prefix('v1')->group(function () {
             Route::post('/', 'store');
             Route::put('/{guideline}', 'update');
             Route::delete('/{guideline}', 'destroy');
+        });
+        Route::prefix('order')->controller(OrderController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('/', 'store');
+            // Route::put('/{guideline}', 'update');
+            // Route::delete('/{guideline}', 'destroy');
         });
     });
 });
