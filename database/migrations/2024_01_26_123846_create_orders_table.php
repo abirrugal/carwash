@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('package_details');
             $table->string('package_price');
             $table->string('package_work_time');
-            $table->decimal('tips');
+            $table->decimal('tips')->nullable();
             $table->string('customer_name');
             $table->string('customer_phone');
             $table->text('customer_address');

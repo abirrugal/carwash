@@ -71,11 +71,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         // Validation
-        $request->validate([
+        $order = $request->validate([
             'package_id' => 'required|exists:packages,id',
             'customer_name' => 'required|string',
             'customer_phone' => 'required|numeric',
             'customer_address' => 'required|string',
+            'tips' => 'nullable|numeric',
         ]);
 
         // Retrieve package details
@@ -90,14 +91,18 @@ class OrderController extends Controller
             'package_name' => $package->title,
             'package_details' => $package->details,
             'package_price' => $package->price,
-            'package_time_limit' => $package->time_limit,
+            'package_work_time' => $package->time_limit,
+            'user_id' => auth()->id()
         ];
+
+        $orderData = array_merge($order, $orderData);
 
         // Create the order
         $order = Order::create($orderData);
 
         // Retrieve and decode order_items
-        $orderItems = json_decode($request->input('order_items'), true);
+        // $orderItems = json_decode($request->input('order_items'), true);
+        $orderItems = $request->input('order_items');
 
         if (!is_array($orderItems)) {
             return response()->json(['error' => 'Invalid order_items format'], 400);
@@ -105,12 +110,12 @@ class OrderController extends Controller
 
         foreach ($orderItems as $orderItemData) {
             // Validate user_vehicle_id existence
-            if (!isset($orderItemData['user_vehicle_id'])) {
-                return response()->json(['error' => 'user_vehicle_id is required in order_items'], 400);
-            }
+            // if (!isset($orderItemData['user_vehicle_id'])) {
+            //     return response()->json(['error' => 'user_vehicle_id is required in order_items'], 400);
+            // }
 
             // Retrieve UserVehicle data
-            $userVehicle = UserVehicle::find($orderItemData['user_vehicle_id']);
+            $userVehicle = UserVehicle::find($orderItemData);
 
             // Check if the user_vehicle exists
             if (!$userVehicle) {
@@ -119,7 +124,7 @@ class OrderController extends Controller
 
             $orderItem = new OrderItem([
                 'order_id' => $order->id,
-                'user_vehicle_id' => $orderItemData['user_vehicle_id'],
+                'user_vehicle_id' => $orderItemData,
                 'vehicle_name' => $userVehicle->name,
                 'vehicle_model' => $userVehicle->model,
                 'type' => $userVehicle->type,
