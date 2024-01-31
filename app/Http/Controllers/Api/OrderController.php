@@ -122,7 +122,7 @@ class OrderController extends Controller
                 return response()->json(['error' => 'Invalid user_vehicle_id in order_items'], 400);
             }
 
-            $orderItem = new OrderItem([
+            $orderItem = new OrderItem([+
                 'order_id' => $order->id,
                 'user_vehicle_id' => $orderItemData,
                 'vehicle_name' => $userVehicle->name,
