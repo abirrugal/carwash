@@ -22,8 +22,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->validate([
-            'vehicle_name_id' => 'required|exists:vehicle_names, id',
-            'vehicle_model_id' => 'required|exists:vehicle_models, id',
+            'vehicle_name_id' => 'required|exists:vehicle_names,id',
+            'vehicle_model_id' => 'required|exists:vehicle_models,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5000'
         ]);
 
@@ -50,7 +50,7 @@ class UserController extends Controller
             'vehicle_model_id' => 'nullable|exists:vehicle_models, id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000'
         ]);
-        
+
         unset($inputs['vehicle_name_id'], $inputs['vehicle_model_id']);
         $inputs['name'] = VehicleName::find($request->vehicle_name_id)->name;
         $inputs['type'] = VehicleName::find($request->vehicle_name_id)->type;
