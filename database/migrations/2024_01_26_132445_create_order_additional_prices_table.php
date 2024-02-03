@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\OrderItem;
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('order_additional_prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(OrderItem::class);
+            $table->foreignIdFor(Order::class);
             $table->string('title');
             $table->text('details')->nullable();
             $table->decimal('price');

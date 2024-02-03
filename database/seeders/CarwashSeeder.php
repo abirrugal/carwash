@@ -24,7 +24,7 @@ class CarwashSeeder extends Seeder
         $this->users();
         $this->vehicles();
         $this->userVehicles();
-        $this->orders();
+        // $this->orders();
     }
 
     public function users()
@@ -99,21 +99,22 @@ class CarwashSeeder extends Seeder
             ]);
         }
 
+        $orderId = rand(1, 20);
+
         for ($i = 0; $i < 201; $i++) {
             OrderItem::create([
-                'order_id' => rand(1, 20),
+                'order_id' => $orderId,
                 'user_vehicle_id' => rand(1, 5),
                 'vehicle_name' => 'Demo Car name ' . $i,
                 'vehicle_model' => 'Demo Car model ' . $i,
                 'image' => fake()->imageUrl(),
                 'type' => fake()->randomElement(['classic', 'modern']),
-                // 'total_additional_price' => rand(300, 1200)
             ]);
         }
 
         for ($i = 0; $i < 300; $i++) {
             OrderAdditionalPrice::create([
-                'order_item_id' => rand(1, 200),
+                'order_id' => $orderId,
                 'title' => 'Demo additional item ' . $i,
                 'details' => 'Demo additional item Details' . $i,
                 'price' => rand(20, 200),

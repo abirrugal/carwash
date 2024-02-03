@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 use App\Models\Additional;
 use App\Models\Order;
 use App\Models\OrderAdditionalPrice;
@@ -14,7 +15,9 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function index(){
-        
+        $orders = Order::where('user_id', auth()->id())->latest()->get();
+
+        return apiResourceResponse(OrderResource::collection($orders), 'Order Details');
     }
 
     public function store(Request $request)
@@ -68,6 +71,7 @@ class OrderController extends Controller
                 'user_vehicle_id' => $orderItemData,
                 'vehicle_name' => $userVehicle->name,
                 'vehicle_model' => $userVehicle->model,
+                'image' => $userVehicle->image,
                 'type' => $userVehicle->type,
             ]);
 
@@ -81,7 +85,7 @@ class OrderController extends Controller
                 // Check if the additional exists
                 if ($additional) {
                     $additionalData = [
-                        'order_item_id' => $orderItem->id,
+                        'order_id' => $order->id,
                         'title' => $additional->title,
                         'details' => $additional->details,
                         'price' => $additional->price,
