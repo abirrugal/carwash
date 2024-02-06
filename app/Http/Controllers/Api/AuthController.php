@@ -48,13 +48,33 @@ class AuthController extends Controller
             'phone' => $request->phone
         ])->first();
 
-        if(!$user) {
+        if (!$user) {
             return errorResponse('User Not Found!', 404);
         }
 
-        if($user->otp != $request->otp) {
+        if ($user->otp != $request->otp) {
             return errorResponse('Invalid OTP', 422);
         }
+
+        return apiResponse([
+            'user' => UserResource::make($user),
+            'token' => $user->createToken("API TOKEN")->plainTextToken,
+        ], 'Login Successful');
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $request->validate([
+            'phone_code' => 'required|string',
+            'phone' => 'required|numeric|digits_between:11,15',
+        ]);
+        
+        $user = User::firstOrCreate(
+            [
+                'phone_code' => $request->phone_code,
+                'phone' => $request->phone
+            ]
+        );
 
         return apiResponse([
             'user' => UserResource::make($user),
