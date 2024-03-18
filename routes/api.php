@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('test', function(){
+    return 'ok';
+});
+
 Route::prefix('v1')->group(function () {
     Route::post('signup', [AuthController::class, 'signup']);
     Route::post('admin/login', [AuthController::class, 'adminLogin']);
