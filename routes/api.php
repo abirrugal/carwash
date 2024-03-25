@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GuidelineController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PackageController;
+use App\Http\Controllers\Api\ReminderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\VehicleModelController;
 use App\Http\Controllers\Api\VehicleNameController;
@@ -21,10 +22,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::get('test', function(){
-    return 'ok';
-});
 
 Route::prefix('v1')->group(function () {
     Route::post('signup', [AuthController::class, 'signup']);
@@ -70,6 +67,13 @@ Route::prefix('v1')->group(function () {
             Route::post('/', 'store');
             Route::put('/{guideline}', 'update');
             Route::delete('/{guideline}', 'destroy');
+        });
+        Route::prefix('other')->controller(ReminderController::class)->group(function () {
+            Route::get('/reminder', 'reminders');
+            Route::post('/reminder', 'updateReminders');
+
+            Route::get('/promotion', 'promotions');
+            Route::post('/promotion', 'updatePromotion');
         });
         Route::prefix('order')->controller(OrderController::class)->group(function () {
             Route::get('/', 'index');
