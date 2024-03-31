@@ -21,6 +21,9 @@ return new class extends Migration
             $table->integer('otp')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->text('address')->nullable();
+            $table->text('rider_note')->nullable();
+            $table->string('lat')->nullable();
+            $table->string('lon')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

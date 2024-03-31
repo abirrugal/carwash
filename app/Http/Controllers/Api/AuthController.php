@@ -35,9 +35,6 @@ class AuthController extends Controller
         $phoneCode = $user->phone_code;
         $phoneNumber = $user->phone;
 
-        $message = 'Hello from Carwash! Your OTP code is ' . $user->otp;
-        $this->twilio->sendMessage('+'.$phoneCode . $phoneNumber, $message);
-
         return apiResponse([
             'user' => UserResource::make($user),
             'otp' => $otp

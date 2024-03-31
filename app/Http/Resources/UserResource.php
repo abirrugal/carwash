@@ -15,9 +15,11 @@ class UserResource extends JsonResource
             'phone_code' => $this->phone_code,
             'phone' => $this->phone,
             'email' => $this->email,
-            'email' => $this->email,
             'address' => $this->address,
             'image' => '',
+            'lat' => $this->lat,
+            'lon' => $this->lon,
+            'rider_note' => $this->rider_note
         ];
     }
 }

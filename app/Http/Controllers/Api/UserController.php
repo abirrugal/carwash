@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\UserVehicleResource;
+use App\Models\User;
 use App\Models\UserVehicle;
 use App\Models\Vehicle;
 use App\Models\VehicleModel;
@@ -69,5 +71,55 @@ class UserController extends Controller
     public function destroy(UserVehicle $vehicle)
     {
         $vehicle->delete();
+    }
+
+    // public function location()
+    // {
+    //     $location = User::select('lat', 'lon')->find(auth()->id());
+
+    //     return apiResponse(['location' => $location], 'Location');
+    // }
+
+    // public function updateLocation(Request $request)
+    // {
+    //     $request->validate([
+    //         'lat' => 'required|numeric',
+    //         'lon' => 'required|numeric'
+    //     ]);
+
+    //     $user = User::findOrFail(auth()->id());
+
+    //     $user->update([
+    //         'lat' => $request->lat,
+    //         'lon' => $request->lon
+    //     ]);
+
+    //     return successResponse('User location updated successfully');
+    // }
+
+    public function profile()
+    {
+        return apiResourceResponse(UserResource::make(auth()->user()));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'address' => 'nullable|min:2|string',
+            'rider_note' => 'nullable|min:2|string',
+            'lat' => 'nullable|numeric',
+            'lon' => 'nullable|numeric'
+        ]);
+        $user = auth()->user();
+        $user->update(
+            [
+                'address' => $request->address,
+                'rider_note' => $request->rider_note,
+                'lat' => $request->lat,
+                'lon' => $request->lon
+            ]
+        );
+
+        return successResponse('User Profile updated successfully');
     }
 }

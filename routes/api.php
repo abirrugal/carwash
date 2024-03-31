@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdditionalController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FeedbackController;
 use App\Http\Controllers\Api\GuidelineController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PackageController;
@@ -74,6 +75,16 @@ Route::prefix('v1')->group(function () {
 
             Route::get('/promotion', 'promotions');
             Route::post('/promotion', 'updatePromotion');
+        });
+        Route::prefix('user')->controller(UserController::class)->group(function () {
+            // Route::get('/location', 'location');
+            // Route::post('/location', 'updateLocation');
+            Route::get('/profile', 'profile');
+            Route::post('/profile', 'updateProfile');
+        });
+        Route::prefix('user')->controller(FeedbackController::class)->group(function () {
+            Route::get('/feedback', 'index');
+            Route::post('/feedback', 'store');
         });
         Route::prefix('order')->controller(OrderController::class)->group(function () {
             Route::get('/', 'index');

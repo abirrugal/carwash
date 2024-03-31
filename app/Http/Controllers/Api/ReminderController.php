@@ -11,7 +11,7 @@ class ReminderController extends Controller
 {
     public function reminders()
     {
-        $reminder = Reminder::latest()->select('text')->get();
+        $reminder = Reminder::latest()->select('text')->first();
 
         return apiResponse(['reminder'=>$reminder], 'Reminders');
     }
@@ -30,7 +30,7 @@ class ReminderController extends Controller
 
     public function promotions()
     {
-        $promotion = Promotion::latest()->select('text')->get();
+        $promotion = Promotion::latest()->select('text')->first();
 
         return apiResponse(['promotion'=>$promotion], 'promotions');
     }
